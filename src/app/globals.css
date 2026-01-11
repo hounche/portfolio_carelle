@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/* ============================= */
+/* THEME VARIABLES               */
+/* ============================= */
+
+:root {
+  --background: #020617;
+  --foreground: #f8fafc;
+
+  --primary: #b91c8c;
+  --secondary: #f43f5e;
+  --accent: #f9a8d4;
+
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.12);
+
+  scroll-behavior: smooth;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ============================= */
+/* GLOBAL                         */
+/* ============================= */
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(
+    circle at top,
+    #050b24,
+    var(--background)
+  );
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navbar offset */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ============================= */
+/* SCROLLBAR                     */
+/* ============================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1025;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--primary),
+    var(--secondary)
+  );
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--secondary),
+    var(--accent)
+  );
+}
+
+/* ============================= */
+/* ANIMATIONS                    */
+/* ============================= */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ============================= */
+/* UTILITIES                     */
+/* ============================= */
+
+.animate-fade {
+  animation: fade-in 0.9s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.animate-glow {
+  animation: glow 4s ease-in-out infinite;
+}
+
+/* ============================= */
+/* CARDS / GLASS                 */
+/* ============================= */
+
+.card {
+  background: linear-gradient(
+    180deg,
+    var(--glass),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--glass-border);
+  border-radius: 1.2rem;
+  padding: 1.6rem;
+  backdrop-filter: blur(14px);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--secondary);
+  box-shadow:
+    0 25px 60px rgba(244, 63, 94, 0.25),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* ============================= */
+/* BUTTONS                       */
+/* ============================= */
+
+button.primary {
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary)
+  );
+  color: var(--foreground);
+  border-radius: 0.9rem;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(244,63,94,0.25);
+  transition: all 0.25s ease;
+}
+
+button.primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(244,63,94,0.45);
+}
+
+button.accent {
+  background: var(--accent);
+  color: var(--background);
+  border-radius: 0.9rem;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+button.accent:hover {
+  transform: scale(1.06);
+  box-shadow: 0 15px 35px rgba(249,168,212,0.55);
+}
+
+/* ============================= */
+/* TEXT EFFECTS                  */
+/* ============================= */
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary),
+    var(--accent)
+  );
+  background-size: 200%;
+  animation: fade-in 1s ease-out;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================= */
+/* IMAGE HOVER                   */
+/* ============================= */
+
+.image-hover {
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+
+.image-hover:hover {
+  transform: scale(1.06);
+  box-shadow: 0 30px 60px rgba(185, 28, 140, 0.45);
+}
+
+/* ============================= */
+/* STARFIELD + NEBULA            */
+/* ============================= */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Étoiles */
+body::before {
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 40% 60%, rgba(249,168,212,0.7), transparent),
+    radial-gradient(1px 1px at 90% 20%, rgba(244,63,94,0.6), transparent);
+  background-size: 180px 180px;
+  animation: stars-drift 140s linear infinite,
+             twinkle 6s ease-in-out infinite;
+}
+
+/* Étoiles brillantes */
+body::after {
+  background-image:
+    radial-gradient(2px 2px at 15% 50%, var(--accent), transparent),
+    radial-gradient(2px 2px at 65% 15%, var(--secondary), transparent),
+    radial-gradient(3px 3px at 35% 75%, var(--primary), transparent);
+  background-size: 420px 420px;
+  animation: stars-drift 220s linear infinite reverse,
+             twinkle 8s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+@keyframes stars-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-2200px); }
+}
+
+@keyframes nebula-float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-80px, -60px) scale(1.05); }
+}
